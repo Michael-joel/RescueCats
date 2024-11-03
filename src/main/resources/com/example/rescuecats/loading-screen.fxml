@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ProgressBar?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<VBox fx:id="loadingScreen" alignment="CENTER" prefHeight="474.0" prefWidth="627.0" spacing="50.0" styleClass="Vbox-background" stylesheets="@../../../styles/loading-screen.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.rescuecats.Controller.LoadingScreenController">
+    <padding>
+        <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
+    </padding>
+    <Label text="Rescue Cats !" textFill="#063de3">
+        <font>
+            <Font name="Verdana Bold Italic" size="41.0" />
+        </font>
+    </Label>
+    <ProgressBar fx:id="progressBar" prefHeight="18.0" prefWidth="518.0" progress="0.0" stylesheets="@../../../styles/loading-screen.css" />
+    <HBox alignment="CENTER" maxWidth="-Infinity" prefHeight="27.0" prefWidth="295.0" spacing="5.0">
+        <children>
+            <Label fx:id="loadLabel" prefHeight="23.0" prefWidth="96.0" text="LOADING " textFill="#063de3">
+                <font>
+                    <Font name="Verdana" size="18.0" />
+                </font>
+            </Label>
+            <Label fx:id="loadingPercent">
+                <font>
+                    <Font name="Verdana" size="18.0" />
+                </font>
+            </Label>
+        </children>
+    </HBox>
+   <Button fx:id="logInToPlayBtn" mnemonicParsing="false" styleClass="log-in-to-play-btn" text="LOG IN TO PLAY" visible="false">
+      <font>
+         <Font name="Verdana Bold" size="14.0" />
+      </font>
+   </Button>
+   <Button fx:id="quitBtn" mnemonicParsing="false" styleClass="log-in-to-play-btn" text="QUIT" visible="false">
+      <font>
+         <Font name="Verdana Bold" size="14.0" />
+      </font>
+   </Button>
+</VBox>

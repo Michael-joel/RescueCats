@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<VBox fx:id="loginScreen" alignment="CENTER" fillWidth="false" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="474.0" prefWidth="627.0" spacing="34.0" styleClass="Vbox-background" stylesheets="@../../../styles/login-signup-menu-page.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.rescuecats.Controller.LoginController">
+   <children>
+      <Label text="LOGIN" textFill="#063de3">
+         <font>
+            <Font name="Verdana Bold" size="24.0" />
+         </font>
+      </Label>
+      <TextField fx:id="loginEmail" promptText="ENTER EMAIL" styleClass="input_field" />
+      <TextField fx:id="loginPassword" promptText="ENTER PASSWORD" styleClass="input_field" />
+      <Button fx:id="loginBtn" mnemonicParsing="false" styleClass="log-in-btn" text="LOG IN">
+         <font>
+            <Font name="Verdana Bold" size="14.0" />
+         </font>
+      </Button>
+      <Button fx:id="signupBtn" mnemonicParsing="false" styleClass="log-in-btn" text="SIGN UP">
+         <font>
+            <Font name="Verdana Bold" size="14.0" />
+         </font>
+      </Button>
+      <Button fx:id="backBtn" mnemonicParsing="false" styleClass="log-in-btn" text="BACK">
+         <font>
+            <Font name="Verdana Bold" size="14.0" />
+         </font>
+      </Button>
+   </children>
+</VBox>

@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.layout.VBox?>
+
+<VBox alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="474.0" prefWidth="627.0" spacing="20.0" styleClass="Vbox-background" stylesheets="@../../../styles/login-signup-menu-page.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.rescuecats.Controller.MenuController">
+   <children>
+      <Button mnemonicParsing="false" styleClass="log-in-btn" text="START" />
+      <Button mnemonicParsing="false" styleClass="log-in-btn" text="PROFILE" />
+      <Button mnemonicParsing="false" styleClass="log-in-btn" text="LEADRBOARD" />
+      <Button mnemonicParsing="false" styleClass="log-in-btn" text="QUIT" />
+   </children>
+</VBox>
