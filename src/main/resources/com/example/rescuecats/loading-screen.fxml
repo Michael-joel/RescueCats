@@ -37,7 +37,7 @@
          <Font name="Verdana Bold" size="14.0" />
       </font>
    </Button>
-   <Button fx:id="quitBtn" mnemonicParsing="false" styleClass="log-in-to-play-btn" text="QUIT" visible="false">
+   <Button fx:id="exitBtn" mnemonicParsing="false" styleClass="log-in-to-play-btn" text="EXIT" visible="false">
       <font>
          <Font name="Verdana Bold" size="14.0" />
       </font>

@@ -26,7 +26,7 @@ public class LoadingScreenController implements Initializable {
     public Label loadingPercent;
     public Label loadLabel;
     public Button logInToPlayBtn;
-    public Button quitBtn;
+    public Button exitBtn;
 
 
     @Override
@@ -50,7 +50,7 @@ public class LoadingScreenController implements Initializable {
                         loadingPercent.setVisible(false);
 
                         logInToPlayBtn.setVisible(true);
-                        quitBtn.setVisible(true);
+                        exitBtn.setVisible(true);
                     }
                 })
         );
@@ -60,7 +60,7 @@ public class LoadingScreenController implements Initializable {
 
     public void addListeners()
     {
-        quitBtn.setOnAction(actionEvent -> quit());
+        exitBtn.setOnAction(actionEvent -> quit());
         logInToPlayBtn.setOnAction(actionEvent -> {
             try {
                 login();
@@ -72,13 +72,13 @@ public class LoadingScreenController implements Initializable {
 
     public void quit()
     {
-        Stage stage = (Stage) quitBtn.getScene().getWindow();
+        Stage stage = (Stage) exitBtn.getScene().getWindow();
         stage.close();
     }
 
     public void login() throws IOException
     {
-        SceneController.control(logInToPlayBtn,"login-screen.fxml");
+        SceneController.control(logInToPlayBtn,"main-game.fxml");
     }
 
 }
