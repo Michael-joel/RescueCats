@@ -78,7 +78,7 @@ public class LoadingScreenController implements Initializable {
 
     public void login() throws IOException
     {
-        SceneController.control(logInToPlayBtn,"main-game.fxml");
+        SceneController.control(logInToPlayBtn,"login-screen.fxml");
     }
 
 }

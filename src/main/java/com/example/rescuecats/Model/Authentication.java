@@ -8,8 +8,7 @@ import java.sql.SQLException;
 
 public class Authentication {
 
-    private String password;
-    private String email;
+    public static Player player;  // an accessible player from any class after authentication is done successfully
 
     /** method to login the player. return true if a player exist else false**/
     public static boolean login(String email,String password)
@@ -22,7 +21,7 @@ public class Authentication {
             ResultSet rs= pstmt.executeQuery();
 
             if(rs.next())
-            {   Player player=new Player(rs.getInt("highscore"));
+            {   player=new Player(rs.getInt("highscore"),rs.getString("email"));
                 System.out.println("an player does exist");
                 return true;
             }

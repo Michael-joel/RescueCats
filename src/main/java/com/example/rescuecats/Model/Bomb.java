@@ -2,9 +2,10 @@ package com.example.rescuecats.Model;
 
 public class Bomb {
 
-    int x,y;
+    int x;
+    double y;
 
-    public Bomb(int x, int y) {
+    public Bomb(int x, double y) {
         this.x = x;
         this.y = y;
     }
@@ -17,11 +18,11 @@ public class Bomb {
         this.x = x;
     }
 
-    public int getY() {
+    public double getY() {
         return y;
     }
 
     public void incrementY() {
-         y+=2;
+         y+=2.0;
     }
 }
