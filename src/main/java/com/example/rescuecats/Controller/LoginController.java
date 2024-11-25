@@ -1,6 +1,8 @@
 package com.example.rescuecats.Controller;
 
 import com.example.rescuecats.Model.Authentication;
+import com.example.rescuecats.Service.LeaderBoardService;
+import javafx.application.Platform;
 import javafx.fxml.Initializable;
 import javafx.geometry.Pos;
 import javafx.scene.control.Button;
@@ -60,7 +62,8 @@ public class LoginController implements Initializable {
                     .hideAfter(Duration.seconds(5));
             notificationBuilder.darkStyle();
             notificationBuilder.showInformation();
-
+            LeaderBoardService leaderBoardService=LeaderBoardService.getInstance();
+            new Thread(leaderBoardService::addPlayersToLeaderBoard).start();
             SceneController.control(loginBtn, "menu.fxml");
         }
         else

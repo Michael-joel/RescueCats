@@ -5,6 +5,7 @@ import com.example.rescuecats.Model.Bomb;
 import com.example.rescuecats.Model.Player;
 import com.example.rescuecats.Model.Puzzle;
 import com.example.rescuecats.Service.CounterService;
+import com.example.rescuecats.Service.LeaderBoardService;
 import com.example.rescuecats.Service.PuzzleService;
 import javafx.animation.AnimationTimer;
 import javafx.application.Platform;
@@ -80,9 +81,10 @@ public class MainGame implements Initializable {
     private boolean gameOver=false;
     private int puzzleCounter;
 
-    private Player player;
     private PuzzleService puzzleService;
     private CounterService counterService;
+
+    private Player player;
     private Puzzle currentPuzzle;
     AnimationTimer gameLoop;
 

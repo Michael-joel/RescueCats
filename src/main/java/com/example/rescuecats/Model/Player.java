@@ -18,6 +18,12 @@ public class Player {
         this.username = username;
     }
 
+    public Player(String username,int highscore)
+    {
+        this.username=username;
+        this.highscore=highscore;
+    }
+
     public String getPlayerId() {
         return playerId;
     }
