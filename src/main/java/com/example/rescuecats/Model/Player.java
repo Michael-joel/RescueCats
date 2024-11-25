@@ -30,6 +30,10 @@ public class Player {
         return highscore;
     }
 
+    public void setHighscore(int highscore) {
+        this.highscore = highscore;
+    }
+
     public int updateHighScore(int currentScore)
     {
         if(currentScore>highscore)
@@ -43,6 +47,7 @@ public class Player {
 
                 if(rowCount>0)
                 {
+                    setHighscore(currentScore);
                     return getHighscore();
                 }
             }
