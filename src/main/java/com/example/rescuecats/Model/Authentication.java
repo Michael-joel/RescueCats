@@ -23,9 +23,9 @@ public class Authentication {
             if(rs.next())
             {   player=new Player(rs.getInt("highscore"),rs.getString("email"),rs.getString("username"));
                 System.out.println("an player does exist");
-                return true;
             }
             rs.close();
+            return true;
         }
         catch(SQLException e)
         {
