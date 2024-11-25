@@ -38,13 +38,14 @@ public class Authentication {
 
     /** method to create a user account and add the user to database , return true upon successfully
      * making account. every new player is inserted with a default highscore of zero**/
-    public static boolean signup(String email,String password)
+    public static boolean signup(String email,String password,String username)
     {
-        String sql="INSERT INTO players VALUES(?,?,0)";
+        String sql="INSERT INTO players VALUES(?,?,?,0)";
         try(PreparedStatement pstmt=DatabaseManager.prepareStatement(sql))
         {
             pstmt.setString(1,email);
             pstmt.setString(2,password);
+            pstmt.setString(3,username);
             int rowCount= pstmt.executeUpdate();
 
             if(rowCount>0)

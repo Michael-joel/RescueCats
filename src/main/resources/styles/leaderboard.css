@@ -1,0 +1,8 @@
+.Vbox-background
+{
+/* code from :https://stackoverflow.com/questions/59802527/set-a-background-image-for-a-hbox-javafx*/
+-fx-background-image: url("file:///C:/RescueCats/src/main/resources/images/sky.jpg");
+-fx-background-repeat: no-repeat;
+-fx-background-position: center;
+-fx-background-size: cover;
+}

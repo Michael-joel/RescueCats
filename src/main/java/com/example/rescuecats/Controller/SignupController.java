@@ -19,6 +19,7 @@ public class SignupController implements Initializable {
     public TextField signupPassword;
     public Button signupBtn;
     public Button backBtn;
+    public TextField signupUsername;
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
@@ -46,7 +47,7 @@ public class SignupController implements Initializable {
 
     private void signup() throws IOException {
 
-        if(Authentication.signup(signupEmail.getText(),signupPassword.getText())) {
+        if(Authentication.signup(signupEmail.getText(),signupPassword.getText(),signupUsername.getText())) {
             Notifications notificationBuilder=Notifications.create()
                     .text("Account created, login to play \n\n\n\n")
                     .position(Pos.CENTER)

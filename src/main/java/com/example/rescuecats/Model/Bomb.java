@@ -23,6 +23,6 @@ public class Bomb {
     }
 
     public void incrementY() {
-         y+=2.0;
+         y+=1.1;
     }
 }
