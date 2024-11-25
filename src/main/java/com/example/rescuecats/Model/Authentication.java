@@ -21,7 +21,7 @@ public class Authentication {
             ResultSet rs= pstmt.executeQuery();
 
             if(rs.next())
-            {   player=new Player(rs.getInt("highscore"),rs.getString("email"));
+            {   player=new Player(rs.getInt("highscore"),rs.getString("email"),rs.getString("username"));
                 System.out.println("an player does exist");
                 return true;
             }

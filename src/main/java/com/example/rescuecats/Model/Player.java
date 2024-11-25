@@ -9,27 +9,25 @@ public class Player {
 
     private int highscore;
     private String playerId;
+    private String username;
 
 
-    public Player(int highscore,String playerId) {
+    public Player(int highscore,String playerId,String username) {
         this.highscore = highscore;
         this.playerId = playerId;
+        this.username = username;
     }
 
     public String getPlayerId() {
         return playerId;
     }
 
-    public void setPlayerId(String playerId) {
-        this.playerId = playerId;
+    public String getUsername() {
+        return username;
     }
 
     public int getHighscore() {
         return highscore;
-    }
-
-    public void setHighscore(int highscore) {
-        this.highscore = highscore;
     }
 
     public int updateHighScore(int currentScore)
