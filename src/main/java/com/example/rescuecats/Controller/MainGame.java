@@ -380,6 +380,9 @@ public class MainGame implements Initializable {
             SceneController.control(BackToMenuBtn,"menu.fxml");
 
         }
+
+        currentScore=0;
+       currentScoreLabel.setText(String.valueOf(currentScore));
        highScoreLabel.setText(String.valueOf(player.updateHighScore(Integer.parseInt(currentScoreLabel.getText()))));
     }
 
