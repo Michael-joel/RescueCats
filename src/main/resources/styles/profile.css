@@ -1,0 +1,29 @@
+.background
+{
+/* code from :https://stackoverflow.com/questions/59802527/set-a-background-image-for-a-hbox-javafx*/
+-fx-background-image: url("file:///C:/RescueCats/src/main/resources/images/sky.jpg");
+-fx-background-repeat: no-repeat;
+-fx-background-position: center;
+-fx-background-size: cover;
+}
+
+.stat_titles
+{
+-fx-font-weight:bold;
+-fx-font-size:22px;
+-fx-font-family:"Verdana";
+}
+
+.scroll-pane
+{
+-fx-background:transparent;
+-fx-background-color:transparent;
+}
+
+.scroll-pane .viewport {
+    -fx-background-color: transparent;
+}
+.scroll-bar {
+    -fx-background-color: transparent;
+    -fx-color:blue;
+}

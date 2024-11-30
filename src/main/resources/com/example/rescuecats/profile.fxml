@@ -1,14 +1,28 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import java.lang.*?>
-<?import java.util.*?>
-<?import javafx.scene.*?>
-<?import javafx.scene.control.*?>
-<?import javafx.scene.layout.*?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
 
-<AnchorPane xmlns="http://javafx.com/javafx"
-            xmlns:fx="http://javafx.com/fxml"
-            fx:controller="com.example.rescuecats.Controller.ProfileController"
-            prefHeight="400.0" prefWidth="600.0">
 
+<AnchorPane prefHeight="650.0" prefWidth="1000.0" styleClass="background" stylesheets="@../../../styles/profile.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.rescuecats.Controller.ProfileController">
+   <children>
+      <ImageView fitHeight="117.0" fitWidth="108.0" layoutX="451.0" layoutY="32.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../../../images/profile.png" />
+         </image>
+      </ImageView>
+      <Label alignment="CENTER" layoutX="416.0" layoutY="160.0" prefHeight="42.0" prefWidth="187.0" styleClass="stat_titles" text="JD_green" textAlignment="CENTER">
+         <font>
+            <Font size="13.0" />
+         </font>
+      </Label>
+      <Label layoutX="138.0" layoutY="220.0" styleClass="stat_titles" text="High Score" />
+      <Label layoutX="702.0" layoutY="220.0" styleClass="stat_titles" text="Achievements " />
+      <Label layoutX="734.0" layoutY="255.0" styleClass="stat_titles" text="Unlocked" />
+      <Label fx:id="profileHIghScoreLbl" layoutX="191.0" layoutY="184.0" />
+      <Label fx:id="achievementsUnlockedLbl" layoutX="777.0" layoutY="184.0" />
+   </children>
 </AnchorPane>
