@@ -27,3 +27,34 @@
     -fx-background-color: transparent;
     -fx-color:blue;
 }
+
+.unlocked {
+    -fx-background-color: #007bff; /* Bright blue */
+    -fx-text-fill: white;         /* White text for contrast */
+    -fx-padding: 10px;
+    -fx-border-radius: 5px;
+    -fx-background-radius: 5px;
+}
+
+.locked {
+    -fx-background-color: #d3d3d3; /* Light gray */
+    -fx-text-fill: #000;          /* Black text */
+    -fx-padding: 10px;
+    -fx-border-radius: 5px;
+    -fx-background-radius: 5px;
+}
+
+.back-btn
+{
+    -fx-background-radius:20;
+    -fx-background-color: #063de3;
+    -fx-border-radius:15;
+    -fx-border-color: white;
+    -fx-border-width:3px;
+    -fx-text-fill:white;
+    -fx-cursor:hand;
+    -fx-pref-width:100;
+    -fx-font-weight:bold;
+    -fx-font-size:14px;
+    -fx-font-family:"Verdana";
+}
