@@ -4,6 +4,7 @@ import com.example.rescuecats.Model.Authentication;
 import com.example.rescuecats.Model.Bomb;
 import com.example.rescuecats.Model.Player;
 import com.example.rescuecats.Model.Puzzle;
+import com.example.rescuecats.Service.AchievementService;
 import com.example.rescuecats.Service.CounterService;
 import com.example.rescuecats.Service.LeaderBoardService;
 import com.example.rescuecats.Service.PuzzleService;
@@ -29,7 +30,6 @@ public class MainGame implements Initializable {
 
 
     public ImageView puzzleImage;
-
     public Canvas gameCanvas;
     public Button zeroBtn;
     public Button oneBtn;
@@ -48,7 +48,8 @@ public class MainGame implements Initializable {
     public Label numberOfPuzzlesSolvedLabel;
 
     private GraphicsContext gc;
-
+    private Button[] answerButtons;
+    private Image bombImage;
 
     private ArrayList<Integer> catXPosition = new ArrayList<>();
     private ArrayList<Integer> bombSpawnPoints = new ArrayList<>();
@@ -57,10 +58,7 @@ public class MainGame implements Initializable {
     private ArrayList<Image> explosionFrames = new ArrayList<>();
     private ArrayList<Bomb> bombs = new ArrayList<>();
     private ArrayList<Bomb> collidedBombs = new ArrayList<>();
-    private Button[] answerButtons;
 
-
-    private Image bombImage;
 
     private final Random random = new Random();
     private long lastUpdate=0;
@@ -86,7 +84,15 @@ public class MainGame implements Initializable {
 
     private Player player;
     private Puzzle currentPuzzle;
+    AchievementService achievementService;
     AnimationTimer gameLoop;
+
+    //achievement stats
+    private boolean firstGame=false;
+    private int noOfDestroyedBombs=0;
+    private int scoredPoints=0;
+    private int noOfSolvedPuzzles=0;
+
 
     @Override
     public void initialize(URL url,ResourceBundle resourceBundle) {
@@ -94,6 +100,7 @@ public class MainGame implements Initializable {
         gc=gameCanvas.getGraphicsContext2D();
         puzzleService=new PuzzleService();
         counterService=new CounterService();
+        achievementService=AchievementService.getInstance();
         player=Authentication.player;
         new Thread(() -> {
             currentPuzzle=puzzleService.fetchNewPuzzle();
@@ -140,6 +147,9 @@ public class MainGame implements Initializable {
         }
         //set high score
         highScoreLabel.setText(String.valueOf(player.getHighscore()));
+        firstGame=true;
+        System.out.println(firstGame);
+
     }
 
     public void startGameLoop() {
@@ -159,6 +169,7 @@ public class MainGame implements Initializable {
 
     private void updateGame()
     {
+        checkAchievements();
         if(catXPosition.isEmpty())
         {
             gameOver=true;
@@ -201,6 +212,8 @@ public class MainGame implements Initializable {
             foundAnswer=false;
             isExploding=true;
             --bombCount;
+            ++noOfDestroyedBombs;
+            ++noOfSolvedPuzzles;
             incrementScore();
             new Thread(() -> {
                 int count=counterService.incrementCounter();
@@ -234,8 +247,8 @@ public class MainGame implements Initializable {
             bombToBeRemoved=null;
 
         }
-    }
 
+    }
 
     private void renderGame() {
 
@@ -358,6 +371,55 @@ public class MainGame implements Initializable {
         currentScore=Integer.parseInt(currentScoreLabel.getText());
         ++currentScore;
         currentScoreLabel.setText(String.valueOf(currentScore));
+    }
+
+    private void checkAchievements() {
+
+        if(firstGame)
+        { //System.out.println("juuththththu");
+            //System.out.println(achievementService.alreadyUnlocked(1));
+            if(achievementService.alreadyUnlocked(1))
+            {
+                achievementService.unlockAchievement(1);
+                System.out.println("juuu");
+            }
+        }
+        if(noOfDestroyedBombs==10)
+        {
+            System.out.println("xxx");
+            if(achievementService.alreadyUnlocked(2))
+            {
+               achievementService.unlockAchievement(2);
+            }
+        }
+        if(noOfDestroyedBombs==50)
+        {
+            System.out.println("lll");
+            if(achievementService.alreadyUnlocked(3))
+            {
+                achievementService.unlockAchievement(3);
+
+            }
+        }
+        if(currentScore==20)
+        {
+            System.out.println("kkk");
+            if(achievementService.alreadyUnlocked(4))
+            {
+                achievementService.unlockAchievement(4);
+
+            }
+        }
+        if(noOfSolvedPuzzles==30)
+        {
+            System.out.println("oooo");
+            if(achievementService.alreadyUnlocked(5))
+            {
+                achievementService.unlockAchievement(5);
+
+            }
+        }
+
     }
 
     private void endGame(ActionEvent event) throws IOException {

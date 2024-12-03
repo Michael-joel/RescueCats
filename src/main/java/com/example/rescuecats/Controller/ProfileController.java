@@ -29,9 +29,9 @@ public class ProfileController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         addListeners();
-        AchievementService achievementService=new AchievementService();
+       AchievementService achievementService=AchievementService.getInstance();
         if(achievementList.isEmpty()) {
-            achievementList = achievementService.getAchievements();
+            achievementList = achievementService.getAchievementsList();
         }else
         {
             achievementList.clear();
@@ -44,8 +44,8 @@ public class ProfileController implements Initializable {
             achievementBox.setSpacing(10);
 
             ImageView badgeIcon = new ImageView(new Image(getClass().getResourceAsStream("/images/medal.png")));
-            badgeIcon.setFitHeight(40);
-            badgeIcon.setFitWidth(40);
+            badgeIcon.setFitHeight(50);
+            badgeIcon.setFitWidth(50);
 
             Label description = new Label(achievement.getAchievement_name());
             description.setStyle("-fx-font-size: 15; -fx-font-weight: bold");
@@ -54,12 +54,11 @@ public class ProfileController implements Initializable {
             achievementBox.getStyleClass().add(achievement.isUnlocked() ? "unlocked" : "locked");
             achievementBox.getChildren().addAll(badgeIcon, description);
 
-            achievementsGridPane.setHgap(20); // Horizontal gap between columns
-            achievementsGridPane.setVgap(20); // Vertical gap between rows
-            achievementsGridPane.setPadding(new Insets(20, 20, 20, 20)); // Padding around the grid
+            achievementsGridPane.setHgap(20);
+            achievementsGridPane.setVgap(20);
+            achievementsGridPane.setPadding(new Insets(20, 20, 20, 20));
             achievementsGridPane.setAlignment(Pos.CENTER);
 
-            // Add to the grid (row and column based on index)
             int col = i % 2; // 2 achievements per row
             int row = i / 2;
             achievementsGridPane.add(achievementBox, col, row);
@@ -75,4 +74,6 @@ public class ProfileController implements Initializable {
             }
         });
     }
+
+
 }

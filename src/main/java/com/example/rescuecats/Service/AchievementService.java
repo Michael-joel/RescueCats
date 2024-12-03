@@ -4,6 +4,9 @@ import com.example.rescuecats.Database.DatabaseManager;
 import com.example.rescuecats.Model.Achievement;
 import com.example.rescuecats.Model.Authentication;
 import com.example.rescuecats.Model.Player;
+import javafx.geometry.Pos;
+import javafx.util.Duration;
+import org.controlsfx.control.Notifications;
 
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -12,10 +15,26 @@ import java.util.ArrayList;
 
 public class AchievementService {
 
-    private ArrayList<Achievement> acheivementsList=new ArrayList<>();
+    private ArrayList<Achievement> achievementsList=new ArrayList<>();
+    private ArrayList<Achievement> lockedAcheivementsList=new ArrayList<>();
     private Player player= Authentication.player;
+    private static AchievementService instance;
 
 
+    public static AchievementService getInstance() {
+        if (instance == null) {
+            instance = new AchievementService();
+        }
+        return instance;
+    }
+
+    public AchievementService() {
+        this.achievementsList = getAchievements();
+    }
+
+    public ArrayList<Achievement> getAchievementsList() {
+        return achievementsList;
+    }
 
     /** getAchievements() method will retrieve all the unlocked and locked achievements of the logged in player from the database
      * and for every unlocked or locked achievements it will create an achievements object and add them to an achievements list.
@@ -44,10 +63,15 @@ public class AchievementService {
 
             while (unlocked_achievement_resultset.next())
             {
-                acheivementsList.add(new Achievement(unlocked_achievement_resultset.getInt("achievement_ID"),unlocked_achievement_resultset.getString("name"),true ));
+                achievementsList.add(new Achievement(unlocked_achievement_resultset.getInt("achievement_ID"),unlocked_achievement_resultset.getString("name"),true ));
             }
             unlocked_achievement_resultset.close();
             System.out.println("got unlocked ones");
+            for(Achievement achievement:achievementsList)
+            {
+                System.out.println("unlocked"+achievement.getAchievement_ID()+"name"+achievement.getAchievement_name()+"status"+achievement.isUnlocked());
+            }
+
         }
         catch(SQLException e)
         {
@@ -62,7 +86,8 @@ public class AchievementService {
 
             while (locked_achievement_resultset.next())
             {
-                acheivementsList.add(new Achievement(locked_achievement_resultset.getInt("achievement_ID"),locked_achievement_resultset.getString("name"),false ));
+                achievementsList.add(new Achievement(locked_achievement_resultset.getInt("achievement_ID"),locked_achievement_resultset.getString("name"),false ));
+                lockedAcheivementsList.add(new Achievement(locked_achievement_resultset.getInt("achievement_ID"),locked_achievement_resultset.getString("name"),false ));
             }
             locked_achievement_resultset.close();
             System.out.println("got locked ones");
@@ -72,12 +97,67 @@ public class AchievementService {
         {
             e.printStackTrace();
         }
-
-        return acheivementsList;
+        for(Achievement achievement:achievementsList)
+        {
+            System.out.println("locked"+achievement.getAchievement_ID()+"name"+achievement.getAchievement_name()+"status"+achievement.isUnlocked());
+        }
+        return achievementsList;
 
     }
 
+    public boolean alreadyUnlocked(int newAchievementID)
+    {
+        Achievement unlockedAchievement=null;
+        for(Achievement achievement:lockedAcheivementsList)
+        {
+            if(newAchievementID==achievement.getAchievement_ID())
+            {
+                unlockedAchievement=lockedAcheivementsList.get(lockedAcheivementsList.indexOf(achievement));
+                break;
+            }
+        }
+        if(unlockedAchievement==null)
+        {
+            return false;
+        }
+        else
+        {
+            lockedAcheivementsList.remove(unlockedAchievement);
+            return true;
+        }
 
+    }
 
+    /** unlockAchievement() will unlock the achievement once the criteria for that achievement has been reached, and insert the newly unlocked
+     * achievement to the unlocked_achievements table in the database**/
+    public void unlockAchievement(int newAchievementID)
+    {
+        System.out.println("in ssql");
+        Achievement achievement=achievementsList.get(newAchievementID-1);
+       String sql="INSERT INTO unlocked_achievements VALUES(?,?)";
+
+       try(PreparedStatement pstmt=DatabaseManager.prepareStatement(sql))
+       {
+           pstmt.setString(1, player.getPlayerId());
+           pstmt.setInt(2,achievement.getAchievement_ID());
+           pstmt.executeUpdate();
+
+           System.out.println("unlocked achievement");
+           Notifications notificationBuilder=Notifications.create()
+                       .title("⭐ UNLOCKED ACHIEVEMENT ⭐")                  // notification builder refrenced
+                       .text(achievement.getAchievement_name())                   // from https://controlsfx.github.io/javadoc/11.1.2/org.controlsfx.controls/org/controlsfx/control/Notifications.html#styleClass(java.lang.String...)
+                       .position(Pos.CENTER)
+                       .hideAfter(Duration.seconds(5));
+           notificationBuilder.darkStyle();
+           notificationBuilder.showInformation();
+
+           achievement.setUnlocked(true);
+
+       }
+       catch (Exception e)
+       {
+           e.printStackTrace();
+       }
+    }
 
 }
