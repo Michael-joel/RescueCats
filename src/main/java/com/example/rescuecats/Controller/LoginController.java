@@ -1,6 +1,7 @@
 package com.example.rescuecats.Controller;
 
 import com.example.rescuecats.Model.Authentication;
+import com.example.rescuecats.Service.AchievementService;
 import com.example.rescuecats.Service.LeaderBoardService;
 import javafx.application.Platform;
 import javafx.fxml.Initializable;
@@ -62,7 +63,7 @@ public class LoginController implements Initializable {
                     .hideAfter(Duration.seconds(5));
             notificationBuilder.darkStyle();
             notificationBuilder.showInformation();
-            LeaderBoardService leaderBoardService=LeaderBoardService.getInstance();
+            LeaderBoardService leaderBoardService=LeaderBoardService.getInstance(); //creating the leaderboard instance after logging in
             new Thread(leaderBoardService::addPlayersToLeaderBoard).start();
             SceneController.control(loginBtn, "menu.fxml");
         }
