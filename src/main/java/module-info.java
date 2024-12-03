@@ -9,6 +9,8 @@ module com.example.rescuecats {
     requires java.sql;
     requires java.net.http;
     requires org.json;
+    requires javafx.media;
+
 
     opens com.example.rescuecats to javafx.fxml;
     exports com.example.rescuecats;

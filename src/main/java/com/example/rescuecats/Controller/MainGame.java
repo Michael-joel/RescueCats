@@ -4,10 +4,7 @@ import com.example.rescuecats.Model.Authentication;
 import com.example.rescuecats.Model.Bomb;
 import com.example.rescuecats.Model.Player;
 import com.example.rescuecats.Model.Puzzle;
-import com.example.rescuecats.Service.AchievementService;
-import com.example.rescuecats.Service.CounterService;
-import com.example.rescuecats.Service.LeaderBoardService;
-import com.example.rescuecats.Service.PuzzleService;
+import com.example.rescuecats.Service.*;
 import javafx.animation.AnimationTimer;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
@@ -81,10 +78,11 @@ public class MainGame implements Initializable {
 
     private PuzzleService puzzleService;
     private CounterService counterService;
+    private AchievementService achievementService;
+    private MusicService musicService;
 
     private Player player;
     private Puzzle currentPuzzle;
-    AchievementService achievementService;
     AnimationTimer gameLoop;
 
     //achievement stats
@@ -100,6 +98,7 @@ public class MainGame implements Initializable {
         gc=gameCanvas.getGraphicsContext2D();
         puzzleService=new PuzzleService();
         counterService=new CounterService();
+        musicService=new MusicService();
         achievementService=AchievementService.getInstance();
         player=Authentication.player;
         new Thread(() -> {
@@ -298,6 +297,7 @@ public class MainGame implements Initializable {
             gc.fillText("😿 GAME OVER 💣", gameCanvas.getWidth() / 2 - 190, gameCanvas.getHeight() / 2 - 50);
             restartBtn.setVisible(true);
             BackToMenuBtn.setVisible(true);
+            musicService.stopBackgroundMusic();
             restartBtn.setOnAction(actionevent -> {
                 try {
                     endGame(actionevent);
