@@ -17,7 +17,9 @@ public class PuzzleService {
     CompletableFuture<HttpResponse<String>> response = null;
 
 
-
+    /** fetchNewPuzzle() will build and call an banana game api request and pass it over the network to
+     *  to obtain an json response which will then be parsed using the org.json library
+     *  to extract the link to the next puzzle image**/
     public Puzzle fetchNewPuzzle()
     {
         /** code for making API calls was referenced from https://www.tutorialspoint.com/java/java_standard_httpclient.htm */

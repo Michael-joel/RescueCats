@@ -1,19 +1,14 @@
 package com.example.rescuecats.Controller;
 
-import com.example.rescuecats.Main;
-import com.example.rescuecats.Model.Authentication;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
-import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
-import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.ProgressBar;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import javafx.util.Duration;
-
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -37,7 +32,7 @@ public class LoadingScreenController implements Initializable {
 
     public void increaseProgress()
     {
-        // Timeline for animating progress
+        // Timeline for animating progress/loading bar
         Timeline timeline = new Timeline(
                 new KeyFrame(Duration.seconds(0.1), event -> {
                     if (progressBar.getProgress() < 1) {
@@ -58,24 +53,27 @@ public class LoadingScreenController implements Initializable {
         timeline.play();
     }
 
+    //attaching event listeners to buttons
     public void addListeners()
     {
         exitBtn.setOnAction(actionEvent -> quit());
         logInToPlayBtn.setOnAction(actionEvent -> {
             try {
-                login();
+                login();                  // call login() when clicked
             } catch (IOException e) {
                 throw new RuntimeException(e);
             }
         });
     }
 
+    //close window and terminate program
     public void quit()
     {
         Stage stage = (Stage) exitBtn.getScene().getWindow();
         stage.close();
     }
 
+    //load the login page
     public void login() throws IOException
     {
         SceneController.control(logInToPlayBtn,"login-screen.fxml");

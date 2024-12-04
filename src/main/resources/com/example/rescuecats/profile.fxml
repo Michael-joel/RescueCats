@@ -18,7 +18,7 @@
             <Image url="@../../../images/profile.png" />
          </image>
       </ImageView>
-      <Label alignment="CENTER" layoutX="416.0" layoutY="160.0" prefHeight="42.0" prefWidth="187.0" styleClass="stat_titles" text="JD_green" textAlignment="CENTER">
+      <Label fx:id="playerName" alignment="CENTER" layoutX="416.0" layoutY="160.0" prefHeight="42.0" prefWidth="187.0" styleClass="stat_titles" textAlignment="CENTER">
          <font>
             <Font size="13.0" />
          </font>

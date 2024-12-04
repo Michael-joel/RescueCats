@@ -1,6 +1,6 @@
 package com.example.rescuecats.Controller;
 
-import com.example.rescuecats.Model.Authentication;
+import com.example.rescuecats.Service.AuthenticationService;
 import javafx.fxml.Initializable;
 import javafx.geometry.Pos;
 import javafx.scene.control.Button;
@@ -26,6 +26,7 @@ public class SignupController implements Initializable {
         addListeners();
     }
 
+    // attaching event listeners to the buttons
     private void addListeners() {
 
         signupBtn.setOnAction(actionEvent -> {
@@ -45,9 +46,10 @@ public class SignupController implements Initializable {
 
     }
 
+    //account creation
     private void signup() throws IOException {
 
-        if(Authentication.signup(signupEmail.getText(),signupPassword.getText(),signupUsername.getText())) {
+        if(AuthenticationService.signup(signupEmail.getText(),signupPassword.getText(),signupUsername.getText())) {
             Notifications notificationBuilder=Notifications.create()
                     .text("Account created, login to play \n\n\n\n")
                     .position(Pos.CENTER)
@@ -55,11 +57,11 @@ public class SignupController implements Initializable {
             notificationBuilder.darkStyle();
             notificationBuilder.showInformation();
 
-            SceneController.control(signupBtn, "login-screen.fxml");
+            SceneController.control(signupBtn, "login-screen.fxml");  //move back to login screen after successfully creating the account
         }
         else
         {
-            Notifications notificationBuilder=Notifications.create()
+            Notifications notificationBuilder=Notifications.create()   //error handling if signup not successful
                     .text("could not create account ")
                     .position(Pos.CENTER)
                     .hideAfter(Duration.seconds(5));
@@ -68,7 +70,7 @@ public class SignupController implements Initializable {
     }
 
     private void back() throws IOException {
-        SceneController.control(signupBtn,"login-screen.fxml");
+        SceneController.control(signupBtn,"login-screen.fxml");     //move back to login screen
 
     }
 }

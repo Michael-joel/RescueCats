@@ -1,7 +1,5 @@
 package com.example.rescuecats.Service;
 
-import com.example.rescuecats.Model.Authentication;
-import javafx.scene.image.Image;
 import org.json.JSONObject;
 
 import java.net.URI;
@@ -21,9 +19,9 @@ public class CounterService {
             }
     
             """;
-    private String puzzleCounterName="puzzleCounter"+Authentication.player.getPlayerId();
+    private String puzzleCounterName="puzzleCounter"+ AuthenticationService.player.getPlayerId();
 
-
+    /** incrementCounter() wiil call the counter api to increment the existing counter once the player solve a puzzle**/
     public int incrementCounter()
     {
         HttpClient client= HttpClient.newHttpClient();
@@ -45,6 +43,7 @@ public class CounterService {
         return solvedPuzzles;
     }
 
+    /** ResetCounter() will simply make a call to counter api to update the counter value to value passed in the request body**/
     public int ResetCounter()
     {
         HttpClient client= HttpClient.newHttpClient();
@@ -71,6 +70,7 @@ public class CounterService {
      *  https://kodejava.org/how-do-i-send-post-request-with-a-json-body-using-the-httpclient/
      * and https://www.javaguides.net/2023/03/java-httpclient-post-request-example.html **/
 
+    /** make a new counter for a new player else if c counter exist for the given player then get that counter**/
     public int createCounter()
     {
         HttpClient client= HttpClient.newHttpClient();

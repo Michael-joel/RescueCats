@@ -1,7 +1,7 @@
 package com.example.rescuecats.Controller;
 
 import com.example.rescuecats.Model.Achievement;
-import com.example.rescuecats.Model.Authentication;
+import com.example.rescuecats.Service.AuthenticationService;
 import com.example.rescuecats.Service.AchievementService;
 import javafx.fxml.Initializable;
 import javafx.geometry.Insets;
@@ -24,22 +24,27 @@ public class ProfileController implements Initializable {
     public Label achievementsUnlockedLbl;
     public GridPane achievementsGridPane;
     public Button backBtn;
+    public Label playerName;
 
-    ArrayList<Achievement> achievementList=new ArrayList<>();
+    ArrayList<Achievement> achievementList=new ArrayList<>(); // list of unlocked and locked achievement of the player
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         addListeners();
-        profileHIghScoreLbl.setText(String.valueOf(Authentication.player.getHighscore()));
-       AchievementService achievementService=AchievementService.getInstance();
-        achievementsUnlockedLbl.setText(String.valueOf(achievementService.getNoOfAchievementsUnlocked()));
+        profileHIghScoreLbl.setText(String.valueOf(AuthenticationService.player.getHighscore())); // displaying the highscore of logged in player
+        playerName.setText(AuthenticationService.player.getUsername());                           // displaying the username of logged in player
+
+        AchievementService achievementService=AchievementService.getInstance();
+        achievementsUnlockedLbl.setText(String.valueOf(achievementService.getNoOfAchievementsUnlocked()));  // displaying the no of achievements of logged in player
 
         if(achievementList.isEmpty()) {
-            achievementList = achievementService.getAchievementsList();
+            achievementList = achievementService.getAchievementsList();  //populating the achievement list from the database
         }else
         {
-            achievementList.clear();
+            achievementList.clear();            // clearing the list of old contents before updating it with new information
         }
+
+        //for every achievements in the achievementList, create a box and add description of achievement and add it to the gridpane.
         for(int i = 0; i < achievementList.size(); i++)
         {
             Achievement achievement = achievementList.get(i);
@@ -55,7 +60,7 @@ public class ProfileController implements Initializable {
             description.setStyle("-fx-font-size: 15; -fx-font-weight: bold");
 
             // Apply CSS styles
-            achievementBox.getStyleClass().add(achievement.isUnlocked() ? "unlocked" : "locked");
+            achievementBox.getStyleClass().add(achievement.isUnlocked() ? "unlocked" : "locked"); // style of the achievement depends on if its unlocked or not
             achievementBox.getChildren().addAll(badgeIcon, description);
 
             achievementsGridPane.setHgap(20);
@@ -69,10 +74,11 @@ public class ProfileController implements Initializable {
         }
     }
 
+    // attaching event listeners to the button
     private void addListeners() {
         backBtn.setOnAction(actionevent->{
             try {
-                SceneController.control(backBtn,"menu.fxml");
+                SceneController.control(backBtn,"menu.fxml");   //move back to menu
             } catch (IOException e) {
                 throw new RuntimeException(e);
             }

@@ -11,7 +11,7 @@ import java.io.IOException;
 public class SceneController {
 
 
-    /**this method is responsible for loading a scene into a stage **/
+    /**this method is responsible for loading any scene/fxml file into a stage **/
     static public void control(Button button ,String fxmlfile) throws IOException {
 
         Stage stage = (Stage) button.getScene().getWindow();

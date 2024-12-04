@@ -2,7 +2,6 @@ package com.example.rescuecats.Service;
 
 import com.example.rescuecats.Database.DatabaseManager;
 import com.example.rescuecats.Model.Achievement;
-import com.example.rescuecats.Model.Authentication;
 import com.example.rescuecats.Model.Player;
 import javafx.geometry.Pos;
 import javafx.util.Duration;
@@ -17,7 +16,7 @@ public class AchievementService {
 
     private ArrayList<Achievement> achievementsList=new ArrayList<>();
     private ArrayList<Achievement> lockedAcheivementsList=new ArrayList<>();
-    private Player player= Authentication.player;
+    private Player player= AuthenticationService.player;
     private static AchievementService instance;
 
 
@@ -109,6 +108,10 @@ public class AchievementService {
         return achievementsList.size()-lockedAcheivementsList.size();
     }
 
+    /** alreadyUnlocked() will check if the achievement is within the lockedAcheivementsList, if its not thr it means the player has already
+     * unlocked it and it will return false meaning no action needs to be taken, but if it's there in the list then it will return true
+     * meaning it has to be unlocked
+     * **/
     public boolean alreadyUnlocked(int newAchievementID)
     {
         Achievement unlockedAchievement=null;

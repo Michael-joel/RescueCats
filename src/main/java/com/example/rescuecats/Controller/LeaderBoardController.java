@@ -3,8 +3,6 @@ package com.example.rescuecats.Controller;
 import com.example.rescuecats.Model.Player;
 import com.example.rescuecats.Service.LeaderBoardService;
 import javafx.fxml.Initializable;
-import javafx.geometry.Insets;
-import javafx.geometry.Pos;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.layout.HBox;
@@ -33,7 +31,7 @@ public class LeaderBoardController implements Initializable {
         setupLeaderboard();
 
     }
-
+    // attaching event listeners to the button
     private void addListeners() {
         leaderBoardBackBtn.setOnAction(actionEvent -> {
             try {
@@ -46,11 +44,13 @@ public class LeaderBoardController implements Initializable {
         });
     }
 
+    /** setupLeaderboard() responsible for building the leaderboard UI using the populated leaderboardPlayers list**/
     private void setupLeaderboard()
     {
-        leaderboardPlayers=LeaderBoardService.getInstance().fetchPlayers();
+        leaderboardPlayers=LeaderBoardService.getInstance().fetchPlayers(); // making call to leaderboard API to fetch players according to their highscore and populate the list
         leaderboardContainer.getChildren().clear(); // Clear previous entries
 
+        // for every player in the leaderboardPlayers list create a horizontal box with their name and high score
         for (Player player : leaderboardPlayers) {
             HBox row = new HBox(10);
             row.setStyle("-fx-background-color:#063de3;-fx-background-radius:20;-fx-border-radius:15;-fx-border-color: white;-fx-border-width:3px;-fx-pref-height:30;-fx-pref-width:100;-fx-padding:10");

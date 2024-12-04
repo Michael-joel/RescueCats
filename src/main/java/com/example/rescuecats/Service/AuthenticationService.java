@@ -1,12 +1,13 @@
-package com.example.rescuecats.Model;
+package com.example.rescuecats.Service;
 
 import com.example.rescuecats.Database.DatabaseManager;
+import com.example.rescuecats.Model.Player;
 
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-public class Authentication {
+public class AuthenticationService {
 
     public static Player player;  // an accessible player from any class after authentication is done successfully
 

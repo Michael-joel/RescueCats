@@ -1,9 +1,7 @@
 package com.example.rescuecats.Service;
 
 import com.example.rescuecats.Database.DatabaseManager;
-import com.example.rescuecats.Model.Authentication;
 import com.example.rescuecats.Model.Player;
-import javafx.scene.image.Image;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
@@ -13,7 +11,6 @@ import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
-import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.concurrent.CompletableFuture;
 
@@ -21,7 +18,7 @@ public class LeaderBoardService {
 
     private final String privateCode = "OEIQkNZxPkSw4oEA8-tHAgDfXYAjMEAkaJ67R9iB_gow";
     private final String publicCode = "6744323f8f40bb0e142abe46";
-    private String username = Authentication.player.getUsername();
+    private String username = AuthenticationService.player.getUsername();
     private String privateURL = "http://dreamlo.com/lb/OEIQkNZxPkSw4oEA8-tHAgDfXYAjMEAkaJ67R9iB_gow";  // API used to add and delete players from the leaderboard
     private String publicURL = "http://dreamlo.com/lb/6744323f8f40bb0e142abe46/json";  // API used to get the leaderboard
     CompletableFuture<HttpResponse<String>> response = null;
@@ -68,7 +65,7 @@ public class LeaderBoardService {
 
     }
 
-
+    /** fetchPlayers() will make a call to the leaderboard api to return all player arranged according to their highscores**/
     public ArrayList<Player> fetchPlayers ()
     {
         HttpClient client= HttpClient.newHttpClient();

@@ -7,6 +7,8 @@ public class MusicService {
 
     private MediaPlayer mediaPlayer;
 
+    /** simple class to play the locally stored background music files of
+     *  the game using MediaPlayer class **/
     public MusicService() {
         playBackgroundMusic();
     }
