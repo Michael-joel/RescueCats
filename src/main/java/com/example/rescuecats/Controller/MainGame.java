@@ -8,7 +8,6 @@ import com.example.rescuecats.Service.*;
 import javafx.animation.AnimationTimer;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
-import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
@@ -65,6 +64,9 @@ public class MainGame implements Initializable {
     private int bombsToBeOnScreen =1;
     private int bombSpawnCooldown=0;
     private final int BOMB_SPAWN_DELAY=150;
+    private double bombSpeed=0.1;
+    private final double SPEED_INCREMENT = 0.05; // Speed increment per level
+    private final double MAX_SPEED = 2.0;
     private boolean collided=false;
     private boolean foundAnswer=false;
     private int frameCounter;
@@ -73,8 +75,8 @@ public class MainGame implements Initializable {
     private boolean isExploding = false;
     private Bomb bombToBeRemoved=null;
     private int currentScore=0;
+    private int speedIncrementCounter=0;
     private boolean gameOver=false;
-    private int puzzleCounter;
 
     private PuzzleService puzzleService;
     private CounterService counterService;
@@ -88,7 +90,6 @@ public class MainGame implements Initializable {
     //achievement stats
     private boolean firstGame=false;
     private int noOfDestroyedBombs=0;
-    private int scoredPoints=0;
     private int noOfSolvedPuzzles=0;
 
 
@@ -104,9 +105,9 @@ public class MainGame implements Initializable {
         new Thread(() -> {
             currentPuzzle=puzzleService.fetchNewPuzzle();
             puzzleImage.setImage(currentPuzzle.getPuzzleImage());
+            counterService.ResetCounter();
             int count=counterService.createCounter();
             Platform.runLater(()-> numberOfPuzzlesSolvedLabel.setText(String.valueOf(count)));
-            //TODO: make sure counter starts at zero
         }).start();
 
         answerButtons=new Button[]{zeroBtn,oneBtn,twoBtn,threeBtn,fourBtn,fiveBtn,sixBtn,sevenBtn,eightBtn,nineBtn};
@@ -127,7 +128,7 @@ public class MainGame implements Initializable {
     }
 
     private void initializeCats() {
-//code referenced from https://docs.oracle.com/javase/8/javafx/api/javafx/scene/canvas/GraphicsContext.html#drawImage-javafx.scene.image.Image-double-double-double-double-
+        //code referenced from https://docs.oracle.com/javase/8/javafx/api/javafx/scene/canvas/GraphicsContext.html#drawImage-javafx.scene.image.Image-double-double-double-double-
         int catYPos= (int)gameCanvas.getHeight()-100;
         System.out.println("first"+catYPos+"second"+gameCanvas.getHeight());
         for (int i = 0; i < 4; i++) {
@@ -197,9 +198,10 @@ public class MainGame implements Initializable {
         if(bombCount!=bombsToBeOnScreen) {
             spawnBomb();
         }
+
         if (foundAnswer && !bombs.isEmpty()) {
             Bomb closestBomb = bombs.get(0);
-            for (Bomb bomb : bombs) {
+            for (Bomb bomb : bombs) {                    // identify the closest bomb to the cats within this loop
                 if (bomb.getY() > closestBomb.getY()) {
                     closestBomb = bomb;
                 }
@@ -213,18 +215,25 @@ public class MainGame implements Initializable {
             --bombCount;
             ++noOfDestroyedBombs;
             ++noOfSolvedPuzzles;
+            ++speedIncrementCounter;
             incrementScore();
             new Thread(() -> {
-                int count=counterService.incrementCounter();
+                int count=counterService.incrementCounter();            //call to counter api to increment the players counter
                 Platform.runLater(()->numberOfPuzzlesSolvedLabel.setText(String.valueOf(count)));
             }).start();
+
+            if (speedIncrementCounter % 20 == 0 && bombSpeed < MAX_SPEED) {     // increase bomb falling speed every 20 puzzles
+                bombSpeed += SPEED_INCREMENT;
+                System.out.println("New Bomb Speed: " + bombSpeed);
+
+            }
         }
 
         // move bombs
         for(Bomb bomb:bombs)
         {
 
-            bomb.incrementY();
+            bomb.moveBombForward(bombSpeed);
 
             if(bomb.getY()>500)
             {
@@ -257,8 +266,7 @@ public class MainGame implements Initializable {
         gc.clearRect(0, 0, gameCanvas.getWidth(), gameCanvas.getHeight());
 
         // Draw each cat with the current tail frame
-        for (int i = 0; i < catXPosition.size(); i++) {
-            int catXPos = catXPosition.get(i);
+        for (int catXPos : catXPosition) {
             gc.drawImage(catFrames.get(currentCatFrame), catXPos, catYPos, 100, 100);
         }
 
@@ -353,7 +361,7 @@ public class MainGame implements Initializable {
         if(currentPuzzle.checkAnswer(number))
         {
             new Thread(() -> {
-                currentPuzzle=puzzleService.fetchNewPuzzle();
+                currentPuzzle=puzzleService.fetchNewPuzzle();           //call to banana game api to get next puzzle
                 puzzleImage.setImage(currentPuzzle.getPuzzleImage());
             }).start();
 

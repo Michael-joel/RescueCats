@@ -7,14 +7,26 @@
 -fx-background-size: cover;
 }
 
-.leaderboard-container
+.scroll-pane
 {
--fx-background-color:#F7F7F9;
--fx-border-color:blue;
--fx-border-width:4px;
-
+-fx-background:transparent;
+-fx-background-color:transparent;
 }
 
+.scroll-pane .viewport {
+    -fx-background-color: transparent;
+}
+.scroll-bar {
+    -fx-background-color: transparent;
+    -fx-color:blue;
+}
+
+.stat_titles
+{
+-fx-font-weight:bold;
+-fx-font-size:20px;
+-fx-font-family:"Verdana";
+}
 .back-btn
 {
     -fx-background-radius:20;

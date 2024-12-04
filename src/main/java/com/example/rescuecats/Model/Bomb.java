@@ -22,7 +22,7 @@ public class Bomb {
         return y;
     }
 
-    public void incrementY() {
-         y+=1.1;
+    public void moveBombForward(double bombSpeed) {
+         y+=bombSpeed;
     }
 }

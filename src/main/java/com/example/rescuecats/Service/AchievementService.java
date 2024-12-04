@@ -102,7 +102,11 @@ public class AchievementService {
             System.out.println("locked"+achievement.getAchievement_ID()+"name"+achievement.getAchievement_name()+"status"+achievement.isUnlocked());
         }
         return achievementsList;
+    }
 
+    public int getNoOfAchievementsUnlocked() {
+
+        return achievementsList.size()-lockedAcheivementsList.size();
     }
 
     public boolean alreadyUnlocked(int newAchievementID)

@@ -1,6 +1,7 @@
 package com.example.rescuecats.Controller;
 
 import com.example.rescuecats.Model.Achievement;
+import com.example.rescuecats.Model.Authentication;
 import com.example.rescuecats.Service.AchievementService;
 import javafx.fxml.Initializable;
 import javafx.geometry.Insets;
@@ -29,7 +30,10 @@ public class ProfileController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         addListeners();
+        profileHIghScoreLbl.setText(String.valueOf(Authentication.player.getHighscore()));
        AchievementService achievementService=AchievementService.getInstance();
+        achievementsUnlockedLbl.setText(String.valueOf(achievementService.getNoOfAchievementsUnlocked()));
+
         if(achievementList.isEmpty()) {
             achievementList = achievementService.getAchievementsList();
         }else

@@ -26,8 +26,7 @@
       <Label layoutX="138.0" layoutY="220.0" styleClass="stat_titles" text="High Score" />
       <Label layoutX="702.0" layoutY="220.0" styleClass="stat_titles" text="Achievements " />
       <Label layoutX="734.0" layoutY="255.0" styleClass="stat_titles" text="Unlocked" />
-      <Label fx:id="profileHIghScoreLbl" layoutX="191.0" layoutY="184.0" />
-      <Label fx:id="achievementsUnlockedLbl" layoutX="777.0" layoutY="184.0" />
+      <Label fx:id="achievementsUnlockedLbl" layoutX="782.0" layoutY="175.0" styleClass="stat_titles" />
       <ScrollPane layoutX="24.0" layoutY="343.0" prefHeight="285.0" prefWidth="944.0">
          <content>
             <GridPane fx:id="achievementsGridPane" prefHeight="281.0" prefWidth="941.0">
@@ -45,5 +44,6 @@
       </ScrollPane>
       <Label layoutX="42.0" layoutY="312.0" styleClass="stat_titles" text="Achievements " />
       <Button fx:id="backBtn" layoutX="33.0" layoutY="36.0" mnemonicParsing="false" styleClass="back-btn" text="BACK" />
+      <Label fx:id="profileHIghScoreLbl" layoutX="192.0" layoutY="181.0" styleClass="stat_titles" />
    </children>
 </AnchorPane>
