@@ -68,7 +68,8 @@ public class LoginController implements Initializable {
         else
         {
             Notifications notificationBuilder=Notifications.create()      // error handling if login not successful
-                    .text("login failed \n\n\n\n")
+                    .text("login failed \n\n\n\n" +
+                            "check credential or check database connectivity")
                     .position(Pos.CENTER)
                     .hideAfter(Duration.seconds(5));
             notificationBuilder.showError();
